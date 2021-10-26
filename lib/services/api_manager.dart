@@ -10,12 +10,11 @@ class ApiManager {
   Future<Marvel?> getCharacters() async {
     var client = http.Client();
 
-    var response = await client.get(Uri.parse(Strings.charactersUrl));
+    var response = await client.get(Uri.parse(Strings.charactersUrl()));
 
     if (response.statusCode == 200) {
       var jsonResponse = response.body;
-      var jsonMap = json.decode(jsonResponse);
-      return marvelFromJson(jsonMap);
+      return marvelFromJson(jsonResponse);
     }
 
     return null;
