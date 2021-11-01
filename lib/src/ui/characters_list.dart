@@ -3,6 +3,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:marvel_heroes/src/business_logic/blocs/characters_bloc.dart';
 import 'package:marvel_heroes/src/models/character.dart';
+import 'package:marvel_heroes/src/ui/bottom_loader.dart';
 
 import 'grid_fixed_height.dart';
 
@@ -14,13 +15,6 @@ class CharactersList extends StatefulWidget {
 }
 
 class _CharactersListState extends State<CharactersList> {
-  final _scrollController = ScrollController();
-
-  @override
-  void initState() {
-    super.initState();
-    _scrollController.addListener(_onScroll);
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -36,8 +30,14 @@ class _CharactersListState extends State<CharactersList> {
                 gridDelegate:
                     const SliverGridDelegateWithFixedCrossAxisCountAndFixedHeight(
                         height: 248, crossAxisCount: 2),
-                itemCount: state.characters.length,
+                itemCount: state.hasReachedMax
+                    ? state.characters.length
+                    : state.characters.length + 1,
                 itemBuilder: (context, index) {
+                  if (index >= state.characters.length) {
+                    context.read<CharactersBloc>().add(CharactersFetched());
+                    return const BottomLoader();
+                  }
                   var character = state.characters[index];
                   return _buildCharacterTile(character);
                 });
@@ -45,31 +45,11 @@ class _CharactersListState extends State<CharactersList> {
       },
     );
   }
-
-  @override
-  void dispose() {
-    _scrollController
-      ..removeListener(_onScroll)
-      ..dispose();
-    super.dispose();
-  }
-
-  void _onScroll() {
-    if (_isBottom) context.read<CharactersBloc>().add(CharactersFetched());
-  }
-
-  bool get _isBottom {
-    if (!_scrollController.hasClients) return false;
-    final maxScroll = _scrollController.position.maxScrollExtent;
-    final currentScroll = _scrollController.offset;
-    return currentScroll >= (maxScroll * 0.9);
-  }
 }
 
 StatelessWidget _buildCharacterTile(Character character) {
   return Card(
     child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Stack(
           alignment: Alignment.bottomRight,
