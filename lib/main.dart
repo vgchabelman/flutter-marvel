@@ -29,10 +29,7 @@ class MyApp extends StatelessWidget {
         ) ,
         visualDensity: VisualDensity.adaptivePlatformDensity
       ),
-      home: BlocProvider(
-        create: (_) => CharactersBloc(),
-        child: const HomePage(),
-      ) ,
+      home:  const HomePage(),
     );
   }
 }
