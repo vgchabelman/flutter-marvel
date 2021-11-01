@@ -1,5 +1,6 @@
 
-import 'package:marvel_heroes/models/comics_item.dart';
+
+import 'comics_item.dart';
 
 class Comics {
   Comics({

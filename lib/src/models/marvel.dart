@@ -4,7 +4,7 @@
 
 import 'dart:convert';
 
-import 'package:marvel_heroes/models/data.dart';
+import 'data.dart';
 
 Marvel marvelFromJson(String str) => Marvel.fromJson(json.decode(str));
 
@@ -12,22 +12,22 @@ String marvelToJson(Marvel data) => json.encode(data.toJson());
 
 class Marvel {
   Marvel({
-    this.code,
-    this.status,
-    this.copyright,
-    this.attributionText,
-    this.attributionHtml,
-    this.etag,
-    this.data,
+    required this.code,
+    required this.status,
+    required this.copyright,
+    required this.attributionText,
+    required this.attributionHtml,
+    required this.etag,
+    required this.data,
   });
 
-  int? code;
-  String? status;
-  String? copyright;
-  String? attributionText;
-  String? attributionHtml;
-  String? etag;
-  Data? data;
+  int code;
+  String status;
+  String copyright;
+  String attributionText;
+  String attributionHtml;
+  String etag;
+  Data data;
 
   factory Marvel.fromJson(Map<String, dynamic> json) => Marvel(
     code: json["code"],
@@ -46,7 +46,7 @@ class Marvel {
     "attributionText": attributionText,
     "attributionHTML": attributionHtml,
     "etag": etag,
-    "data": data?.toJson(),
+    "data": data.toJson(),
   };
 }
 
@@ -108,33 +108,6 @@ final itemTypeValues = EnumValues({
   "cover": ItemType.COVER,
   "": ItemType.EMPTY,
   "interiorStory": ItemType.INTERIOR_STORY
-});
-
-class Thumbnail {
-  Thumbnail({
-    this.path,
-    this.extension,
-  });
-
-  String? path;
-  Extension? extension;
-
-  factory Thumbnail.fromJson(Map<String, dynamic> json) => Thumbnail(
-    path: json["path"],
-    extension: extensionValues.map[json["extension"]],
-  );
-
-  Map<String, dynamic> toJson() => {
-    "path": path,
-    "extension": extensionValues.reverse[extension],
-  };
-}
-
-enum Extension { JPG, GIF }
-
-final extensionValues = EnumValues({
-  "gif": Extension.GIF,
-  "jpg": Extension.JPG
 });
 
 class Url {

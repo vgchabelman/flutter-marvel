@@ -1,4 +1,5 @@
-import 'package:marvel_heroes/constants/config.dart';
+
+import 'package:marvel_heroes/src/constants/config.dart';
 
 class Strings {
   static const String baseUrl = 'https://gateway.marvel.com/v1/public';
