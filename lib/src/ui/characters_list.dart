@@ -29,10 +29,10 @@ class _CharactersListState extends State<CharactersList> {
             return GridView.builder(
                 gridDelegate:
                     const SliverGridDelegateWithFixedCrossAxisCountAndFixedHeight(
-                        height: 248, crossAxisCount: 2),
-                itemCount: state.hasReachedMax
-                    ? state.characters.length
-                    : state.characters.length + 1,
+                        height: 248,
+                        crossAxisCount: 2
+                    ),
+                itemCount: _getItemCount(state),
                 itemBuilder: (context, index) {
                   if (index >= state.characters.length) {
                     context.read<CharactersBloc>().add(CharactersFetched());
@@ -45,6 +45,10 @@ class _CharactersListState extends State<CharactersList> {
       },
     );
   }
+}
+
+int _getItemCount(CharactersState state) {
+  return state.hasReachedMax ? state.characters.length : state.characters.length + 1;
 }
 
 StatelessWidget _buildCharacterTile(Character character) {
