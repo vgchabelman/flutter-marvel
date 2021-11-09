@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:marvel_heroes/src/business_logic/blocs/characters_bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'src/ui/pages/homepage.dart';
 
@@ -27,7 +29,7 @@ class MyApp extends StatelessWidget {
         ) ,
         visualDensity: VisualDensity.adaptivePlatformDensity
       ),
-      home: const HomePage(),
+      home:  const HomePage(),
     );
   }
 }

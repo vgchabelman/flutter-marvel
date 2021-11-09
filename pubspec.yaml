@@ -38,6 +38,9 @@ dependencies:
 dev_dependencies:
   http: ^0.13.4
   tuple: ^2.0.0
+  flutter_bloc: ^7.3.1
+  equatable: ^2.0.3
+
   flutter_test:
     sdk: flutter
 
